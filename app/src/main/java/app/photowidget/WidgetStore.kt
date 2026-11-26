@@ -15,7 +15,7 @@ object WidgetStore {
     private const val PREFS = "widget_prefs"
     private const val MAX_SOURCE_SIDE = 1280
 
-    data class Settings(val fit: Boolean, val radiusDp: Int)
+    data class Settings(val shape: Int, val radiusDp: Int)
 
     private fun prefs(c: Context) = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
@@ -24,13 +24,13 @@ object WidgetStore {
     fun pendingFile(c: Context, id: Int): File = File(c.cacheDir, "pending_$id.jpg")
 
     fun load(c: Context, id: Int): Settings = Settings(
-        fit = prefs(c).getBoolean("fit_$id", false),
+        shape = prefs(c).getInt("shape_$id", ShapeType.ROUNDED),
         radiusDp = prefs(c).getInt("radius_$id", 20)
     )
 
     fun save(c: Context, id: Int, s: Settings) {
         prefs(c).edit()
-            .putBoolean("fit_$id", s.fit)
+            .putInt("shape_$id", s.shape)
             .putInt("radius_$id", s.radiusDp)
             .apply()
     }
@@ -38,7 +38,7 @@ object WidgetStore {
     fun delete(c: Context, id: Int) {
         imageFile(c, id).delete()
         pendingFile(c, id).delete()
-        prefs(c).edit().remove("fit_$id").remove("radius_$id").apply()
+        prefs(c).edit().remove("shape_$id").remove("radius_$id").apply()
     }
 
     fun decodeFile(file: File): Bitmap? =

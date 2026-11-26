@@ -2,23 +2,41 @@
 <resources>
     <string name="app_name">Фото-виджет</string>
     <string name="widget_name">Фото из галереи</string>
+    <string name="widget_name_small">Фото · 2×2</string>
+    <string name="widget_name_wide">Фото · 4×2</string>
+    <string name="widget_name_large">Фото · 4×4</string>
     <string name="widget_description">Любимое фото на рабочем столе</string>
     <string name="widget_empty_hint">Нажмите, чтобы выбрать фото</string>
 
-    <string name="main_headline">Фото на рабочем столе</string>
-    <string name="main_desc">Добавьте виджет, выберите снимок из галереи и настройте масштаб и скругление углов.</string>
+    <string name="main_headline">Фото-виджет</string>
+    <string name="main_desc">Любимые снимки прямо на рабочем столе: выберите размер, форму и скругление углов.</string>
     <string name="widgets_count">Активных виджетов: %1$d</string>
-    <string name="add_widget">Добавить виджет на экран</string>
+    <string name="section_sizes">Размеры</string>
+    <string name="section_shapes">Формы</string>
+    <string name="section_how">Как это работает</string>
+
+    <string name="preset_small">Компактный</string>
+    <string name="preset_small_desc">Небольшая рамка в углу экрана.</string>
+    <string name="preset_wide">Широкий</string>
+    <string name="preset_wide_desc">Панорамный кадр во всю ширину экрана.</string>
+    <string name="preset_large">Большой</string>
+    <string name="preset_large_desc">Крупная фотография, как картина на стене.</string>
+    <string name="size_fmt">%1$d×%2$d клетки</string>
+    <string name="add_widget">Добавить</string>
     <string name="pin_unsupported">Лаунчер не поддерживает быстрое добавление. Добавьте виджет вручную: долгое нажатие на рабочем столе → Виджеты → Фото-виджет.</string>
-    <string name="how_title">Как добавить вручную</string>
-    <string name="how_steps">1. Долгое нажатие на пустом месте рабочего стола.\n2. Откройте раздел «Виджеты».\n3. Найдите «Фото-виджет» и перетащите на экран.\n4. Выберите фото и нажмите «Готово».\n\nЧтобы сменить фото, нажмите на виджет.</string>
+
+    <string name="shape_rounded">Рамка</string>
+    <string name="shape_circle">Круг</string>
+    <string name="shape_capsule">Капсула</string>
+    <string name="shapes_hint">Форму и скругление выбирают при добавлении виджета, их можно изменить позже: нажмите на виджет.</string>
+    <string name="how_steps">1. Нажмите «Добавить» у нужного размера или откройте «Виджеты» долгим нажатием на рабочем столе.\n2. Выберите фото, форму и скругление.\n3. Нажмите «Готово».\n\nРазмер меняется прямо на рабочем столе: потяните за рамку виджета, фото перекадрируется автоматически.</string>
 
     <string name="configure_title">Настройка виджета</string>
     <string name="no_photo">Фото не выбрано</string>
     <string name="pick_photo">Выбрать фото из галереи</string>
-    <string name="scale_label">Масштаб</string>
-    <string name="scale_fill">Заполнить</string>
-    <string name="scale_fit">Вписать</string>
+    <string name="replace_photo">Заменить фото</string>
+    <string name="size_info">Размер %1$d×%2$d. Его можно изменить растягиванием виджета на рабочем столе.</string>
+    <string name="shape_label">Форма</string>
     <string name="radius_label">Скругление углов</string>
     <string name="radius_value">%1$d dp</string>
     <string name="done">Готово</string>

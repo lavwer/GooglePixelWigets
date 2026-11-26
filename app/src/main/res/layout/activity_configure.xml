@@ -28,20 +28,24 @@
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="wrap_content"
                 app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardCornerRadius="28dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:minHeight="240dp"
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/img_preview"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:adjustViewBounds="true"
                         android:contentDescription="@string/widget_name"
+                        android:maxHeight="288dp"
                         android:scaleType="fitCenter"
                         android:visibility="gone" />
 
@@ -55,6 +59,14 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_size_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_pick"
@@ -70,11 +82,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/scale_label"
+                android:text="@string/shape_label"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggle_scale"
+                android:id="@+id/toggle_shape"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -82,51 +94,66 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_fill"
+                    android:id="@+id/btn_shape_rounded"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/scale_fill" />
+                    android:text="@string/shape_rounded" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_fit"
+                    android:id="@+id/btn_shape_circle"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/scale_fit" />
+                    android:text="@string/shape_circle" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_shape_capsule"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/shape_capsule" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <LinearLayout
+                android:id="@+id/row_radius"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/radius_label"
-                    android:textAppearance="?attr/textAppearanceTitleSmall" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_radius_value"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/radius_label"
+                        android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+                    <TextView
+                        android:id="@+id/tv_radius_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?attr/textAppearanceLabelLarge"
+                        android:textColor="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_radius"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceLabelLarge"
-                    android:textColor="?attr/colorPrimary" />
+                    android:stepSize="1"
+                    android:value="20"
+                    android:valueFrom="0"
+                    android:valueTo="40" />
             </LinearLayout>
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_radius"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stepSize="1"
-                android:value="20"
-                android:valueFrom="0"
-                android:valueTo="40" />
         </LinearLayout>
     </ScrollView>
 

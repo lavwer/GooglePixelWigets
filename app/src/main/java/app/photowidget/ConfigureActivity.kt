@@ -14,10 +14,12 @@ import app.photowidget.databinding.ActivityConfigureBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class ConfigureActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityConfigureBinding
+    private lateinit var preset: SizePreset
     private var widgetId = AppWidgetManager.INVALID_APPWIDGET_ID
     private var previewSrc: Bitmap? = null
 
@@ -61,11 +63,19 @@ class ConfigureActivity : AppCompatActivity() {
         b = ActivityConfigureBinding.inflate(layoutInflater)
         setContentView(b.root)
 
+        preset = SizePreset.forWidget(this, widgetId)
+        b.tvSizeInfo.text = getString(R.string.size_info, preset.cols, preset.rows)
         b.toolbar.setNavigationOnClickListener { finish() }
 
         val settings = WidgetStore.load(this, widgetId)
-        b.toggleScale.check(if (settings.fit) R.id.btn_fit else R.id.btn_fill)
-        b.sliderRadius.value = settings.radiusDp.toFloat()
+        b.toggleShape.check(
+            when (settings.shape) {
+                ShapeType.CIRCLE -> R.id.btn_shape_circle
+                ShapeType.CAPSULE -> R.id.btn_shape_capsule
+                else -> R.id.btn_shape_rounded
+            }
+        )
+        b.sliderRadius.value = settings.radiusDp.coerceIn(0, 40).toFloat()
 
         val pending = WidgetStore.pendingFile(this, widgetId)
         previewSrc = if (pending.exists()) {
@@ -74,25 +84,42 @@ class ConfigureActivity : AppCompatActivity() {
             WidgetStore.decodeFile(WidgetStore.imageFile(this, widgetId))
         }
 
-        b.btnPick.setOnClickListener {
-            picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        }
-        b.toggleScale.addOnButtonCheckedListener { _, _, isChecked ->
+        b.btnPick.setOnClickListener { launchPicker() }
+        b.toggleShape.addOnButtonCheckedListener { _, _, isChecked ->
             if (isChecked) refreshPreview()
         }
         b.sliderRadius.addOnChangeListener { _, _, _ -> refreshPreview() }
         b.btnSave.setOnClickListener { save() }
 
         refreshPreview()
+
+        // Плавный сценарий: при первом добавлении сразу открываем выбор фото
+        if (savedInstanceState == null && previewSrc == null) {
+            b.root.post { launchPicker() }
+        }
+    }
+
+    private fun launchPicker() {
+        picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     private fun resultIntent() = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
 
-    private fun isFit() = b.toggleScale.checkedButtonId == R.id.btn_fit
+    private fun currentShape(): Int = when (b.toggleShape.checkedButtonId) {
+        R.id.btn_shape_circle -> ShapeType.CIRCLE
+        R.id.btn_shape_capsule -> ShapeType.CAPSULE
+        else -> ShapeType.ROUNDED
+    }
 
     private fun refreshPreview() {
+        val shape = currentShape()
         val radius = b.sliderRadius.value.toInt()
+        val rounded = shape == ShapeType.ROUNDED
+
+        b.sliderRadius.isEnabled = rounded
+        b.rowRadius.alpha = if (rounded) 1f else 0.38f
         b.tvRadiusValue.text = getString(R.string.radius_value, radius)
+        b.btnPick.setText(if (previewSrc != null) R.string.replace_photo else R.string.pick_photo)
 
         val src = previewSrc
         if (src == null) {
@@ -100,7 +127,12 @@ class ConfigureActivity : AppCompatActivity() {
             b.tvEmpty.visibility = View.VISIBLE
             return
         }
-        b.imgPreview.setImageBitmap(WidgetRenderer.drawBitmap(src, 600, 600, isFit(), radius * 3f))
+
+        // Превью в тех же пропорциях, что и выбранный размер виджета
+        val scale = 720f / maxOf(preset.nominalWidthDp, preset.nominalHeightDp)
+        val w = (preset.nominalWidthDp * scale).roundToInt()
+        val h = (preset.nominalHeightDp * scale).roundToInt()
+        b.imgPreview.setImageBitmap(WidgetRenderer.drawBitmap(src, w, h, shape, radius * scale))
         b.imgPreview.visibility = View.VISIBLE
         b.tvEmpty.visibility = View.GONE
     }
@@ -120,7 +152,7 @@ class ConfigureActivity : AppCompatActivity() {
         WidgetStore.save(
             this,
             widgetId,
-            WidgetStore.Settings(fit = isFit(), radiusDp = b.sliderRadius.value.toInt())
+            WidgetStore.Settings(shape = currentShape(), radiusDp = b.sliderRadius.value.toInt())
         )
         WidgetRenderer.update(this, AppWidgetManager.getInstance(this), widgetId)
 

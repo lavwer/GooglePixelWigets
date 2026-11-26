@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "WidgetCraft"
+rootProject.name = "PhotoWidget"
 include(":app")

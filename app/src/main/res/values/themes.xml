@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.WidgetCraft" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/accent</item>
-        <item name="android:statusBarColor">@color/bg_dark</item>
-        <item name="android:windowBackground">@color/bg_dark</item>
-    </style>
+    <style name="Theme.PhotoWidget" parent="Theme.Material3.DayNight.NoActionBar" />
 </resources>

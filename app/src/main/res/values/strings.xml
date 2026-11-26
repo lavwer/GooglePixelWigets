@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Widget Craft</string>
-    <string name="templates_title">Выбери стиль виджета</string>
-    <string name="pick_photo">Выбрать фото</string>
-    <string name="add_widget">Добавить виджет</string>
-    <string name="how_to_add">Чтобы добавить виджет: удерживай пустое место на рабочем столе → «Виджеты» → выбери Widget Craft → перетащи на стол. Затем выбери стиль и фото.</string>
+    <string name="app_name">Фото-виджет</string>
+    <string name="widget_name">Фото из галереи</string>
+    <string name="widget_description">Любимое фото на рабочем столе</string>
+    <string name="widget_empty_hint">Нажмите, чтобы выбрать фото</string>
+
+    <string name="main_headline">Фото на рабочем столе</string>
+    <string name="main_desc">Добавьте виджет, выберите снимок из галереи и настройте масштаб и скругление углов.</string>
+    <string name="widgets_count">Активных виджетов: %1$d</string>
+    <string name="add_widget">Добавить виджет на экран</string>
+    <string name="pin_unsupported">Лаунчер не поддерживает быстрое добавление. Добавьте виджет вручную: долгое нажатие на рабочем столе → Виджеты → Фото-виджет.</string>
+    <string name="how_title">Как добавить вручную</string>
+    <string name="how_steps">1. Долгое нажатие на пустом месте рабочего стола.\n2. Откройте раздел «Виджеты».\n3. Найдите «Фото-виджет» и перетащите на экран.\n4. Выберите фото и нажмите «Готово».\n\nЧтобы сменить фото, нажмите на виджет.</string>
+
+    <string name="configure_title">Настройка виджета</string>
+    <string name="no_photo">Фото не выбрано</string>
+    <string name="pick_photo">Выбрать фото из галереи</string>
+    <string name="scale_label">Масштаб</string>
+    <string name="scale_fill">Заполнить</string>
+    <string name="scale_fit">Вписать</string>
+    <string name="radius_label">Скругление углов</string>
+    <string name="radius_value">%1$d dp</string>
+    <string name="done">Готово</string>
+    <string name="pick_first">Сначала выберите фото</string>
+    <string name="load_error">Не удалось загрузить фото</string>
+    <string name="close">Закрыть</string>
 </resources>
